@@ -1,3 +1,3 @@
 [submodule "drawio"]
 	path = drawio
-	url = https://github.com/infinicore-io/drawio
+	url = git@iVOSGitRepo:01x/drawio.git
