@@ -97,7 +97,7 @@
 			});
 
 			window.addEventListener("error", function (e) {
-				log("ERR:" + e.error.message + "\n" + e.error.stack);
+				log("ERR:" + e.error.message + ' ---- ' +e.error.stack);
 			});
 
 		})();
@@ -239,6 +239,7 @@
 			margin: 5px;
 		}
 	</style>
+	<script src="js/infinicore-components.js"></script>
 	<script src="js/iwebcomps.js"></script>
 	<script src="js/PreConfig.js"></script>
 	<script src="js/app.min.js"></script>

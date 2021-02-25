@@ -21,6 +21,7 @@ export class DrawioClientFactory {
 		webviewPanel: WebviewPanel,
 		options: DrawioClientOptions
 	): Promise<CustomizedDrawioClient> {
+		
 		const config = this.config.getDiagramConfig(uri);
 		const plugins = await this.getPlugins(config);
 
@@ -48,6 +49,11 @@ export class DrawioClientFactory {
 			{ name: "Update Webview Html" }
 		);
 
+		let out:OutputChannel = window.createOutputChannel("iAuto3 RunScript");
+		out.show();
+
+		// out.appendLine("vscode -> drawio: init !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+
 		const drawioClient = new CustomizedDrawioClient(
 			{
 				sendMessage: (msg) => {
@@ -56,9 +62,12 @@ export class DrawioClientFactory {
 				},
 				registerMessageHandler: (handler) => {
 					return webview.onDidReceiveMessage((msg) => {
-						this.log.appendLine(
-							"vscode <- drawio: " + prettify(msg)
-						);
+						if(msg && msg.constructor == String && JSON.parse(msg+'').event == 'log'){
+							out.appendLine(
+								"vscode <- drawio: " + prettify(msg)
+							);
+						}
+						
 						handler(msg);
 					});
 				},
